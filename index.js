@@ -4,6 +4,7 @@ const generateRandomNumber = require('./utils/generateRandomNumber')
 const app = express()
 const port = 3000
 const bodyParser = require('body-parser');
+const generatePerson = require('./utils/generatePerson')
 app.use(bodyParser.json());
 
 
@@ -22,12 +23,9 @@ app.get('/counter',(req,res)=>{
 })
 app.post('/create-profile',(req,res)=>{
     const {fields}=req.body;
-    const person = fields.reduce((acc,cur)=>{
-        acc[cur]=cur;
-        return acc;
-        },{})
+   
 
-    res.status(201).json({fields:person})
+    res.status(201).json({person:generatePerson(fields)})
 })
 
 app.listen(port, () => {
